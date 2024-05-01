@@ -33,7 +33,7 @@ echo "  <body>" >> index.html
 echo "    <h1>Links for llama-cpp-python</h1>" >> index.html
 
 # Get all releases
-releases=$(curl -s https://api.github.com/repos/abetlen/llama-cpp-python/releases | jq -r .[].tag_name)
+releases=$(curl -s https://api.github.com/repos/sakurallm/llama-cpp-python/releases | jq -r .[].tag_name)
 
 # Get pattern from second arg or default to valid python package version pattern
 pattern=${2:-"^[v]?[0-9]+\.[0-9]+\.[0-9]+$"}
@@ -43,7 +43,7 @@ releases=$(echo $releases | tr ' ' '\n' | grep -E $pattern)
 
 # For each release, get all assets
 for release in $releases; do
-    assets=$(curl -s https://api.github.com/repos/abetlen/llama-cpp-python/releases/tags/$release | jq -r .assets)
+    assets=$(curl -s https://api.github.com/repos/sakurallm/llama-cpp-python/releases/tags/$release | jq -r .assets)
     echo "    <h2>$release</h2>" >> index.html
     for asset in $(echo $assets | jq -r .[].browser_download_url); do
         if [[ $asset == *".whl" ]]; then
